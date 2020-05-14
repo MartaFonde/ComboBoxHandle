@@ -76,7 +76,6 @@ public class SwingDelCombo extends JFrame implements ActionListener, ItemListene
         btnQuitar = new JButton("Quitar");
         btnQuitar.setSize(btnQuitar.getPreferredSize());
         btnQuitar.setLocation(250, 100);
-        btnQuitar.setBackground(Color.white);
         btnQuitar.setToolTipText(
                 "Borra de ComboBox A el item seleccionado o los que comiencen por lo introducido en el campo de texto");
         btnQuitar.addActionListener(this);
@@ -84,7 +83,7 @@ public class SwingDelCombo extends JFrame implements ActionListener, ItemListene
         add(btnQuitar);
 
         lblElem = new JLabel("Cantidad de elementos en cbA: " + cbA.getItemCount());
-        lblElem.setSize(lblElem.getPreferredSize());
+        lblElem.setSize(280,20);
         lblElem.setLocation(20, 140);
         lblElem.setToolTipText("Número total de items de ComboBox A");
         add(lblElem);
@@ -141,25 +140,31 @@ public class SwingDelCombo extends JFrame implements ActionListener, ItemListene
         }
 
         if (e.getSource() == btnQuitar) {
-            if (txf2.getText().length() == 0) {
-                cbA.removeItemAt(cbA.getSelectedIndex());
-            } else {
-                for (int i = cbA.getItemCount() - 1 ; i >= 0; i--) {
-                    if (cbA.getItemAt(i).startsWith(txf2.getText())) {
-                        cbA.removeItemAt(i);
+            if(cbA.getItemCount() > 0){
+                if (txf2.getText().length() == 0) {
+                    cbA.removeItemAt(cbA.getSelectedIndex());
+                } else {
+                    for (int i = cbA.getItemCount() - 1 ; i >= 0; i--) {
+                        if (cbA.getItemAt(i).startsWith(txf2.getText())) {
+                            cbA.removeItemAt(i);
+                        }
                     }
                 }
             }
         }
 
         if (e.getSource() == btnTraspasarAB) {
-            cbB.addItem(cbA.getSelectedItem().toString());
-            cbA.removeItem(cbA.getSelectedItem());
+            if(cbA.getItemCount() > 0){
+                cbB.addItem(cbA.getSelectedItem().toString());
+                cbA.removeItem(cbA.getSelectedItem());
+            }
         }
 
         if (e.getSource() == btnTraspasarBA) {
-            cbA.addItem(cbB.getSelectedItem().toString());
-            cbB.removeItem(cbB.getSelectedItem());
+            if(cbB.getItemCount() > 0){
+                cbA.addItem(cbB.getSelectedItem().toString());
+                cbB.removeItem(cbB.getSelectedItem());
+            }
         }
         lblElem.setText("Cantidad de elementos en cbA: " + cbA.getItemCount());
         lblInd.setText("Índice seleccionado en cbA: " + cbA.getSelectedIndex());
@@ -179,7 +184,7 @@ public class SwingDelCombo extends JFrame implements ActionListener, ItemListene
         @Override
         public void mouseEntered(java.awt.event.MouseEvent e) {
             if (e.getSource() == btnQuitar) {
-                btnQuitar.setBackground(Color.red);
+                btnQuitar.setForeground(Color.red);
             }
             cont = 0;
         }
@@ -187,7 +192,7 @@ public class SwingDelCombo extends JFrame implements ActionListener, ItemListene
         @Override
         public void mouseExited(java.awt.event.MouseEvent e) {
             if (e.getSource() == btnQuitar) {
-                btnQuitar.setBackground(Color.white);
+                btnQuitar.setForeground(Color.black);
             }
             cont = 0;
         }
